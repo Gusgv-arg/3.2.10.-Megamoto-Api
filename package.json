@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "build": "npm run build",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^1.5.1",
