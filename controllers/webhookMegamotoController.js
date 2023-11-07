@@ -5,7 +5,7 @@ import Messages from "../models/messages.js";
 
 dotenv.config();
 
-//webhook que usa el prmpting para la base de conocimiento
+//webhook que usa el prmpting para la base de conocimiento//
 const API_KEY = process.env.OPENAI_API_KEY;
 
 const openai = new OpenAI({
