@@ -14,17 +14,23 @@ const openai = new OpenAI({
 let contador = 0;
 export const webhookMegamotoController = async (req, res) => {
 	const data = req.body;
-	//console.log("recibido de facebook", data);
-	contador = contador + 1;
-	console.log("contador", contador);
+	
 	if (data.message) {
 		const senderId = data.message.from;
 		const receivedMessage = data.message.contents[0].text;
 		const name = data.message.visitor.name;
 		const channel = data.channel;
 		console.log("mensaje recibido de facebook", receivedMessage);
+		console.log("senderId:", senderId);
+		if (senderId==6874624262580365){
+			const yo = senderId
+			console.log("yooo", yo)
+		} else {
+			console.log("no entra aca")
+		}
 
-		if (receivedMessage) {
+		if (receivedMessage && senderId==6874624262580365) {
+		
 			// Define the maximum number of messages to include in the conversation history
 			const MAX_HISTORY_MESSAGES = 2;
 
@@ -77,6 +83,9 @@ export const webhookMegamotoController = async (req, res) => {
 			});
 
 			await handleMessage(senderId, aiResponse.choices[0].message.content);
+		} else {
+			await handleMessage(senderId, "!Hola! Estamos trabajando para que los mensajes sean respondido por nuestro bot de IA y no tengas que esperar. En breve te contestamos. !Gracias! ");
+
 		}
 	}
 
@@ -110,8 +119,7 @@ async function handleMessage(senderId, message) {
 				"X-API-TOKEN": process.env.ZENVIA_API_TOKEN,
 			},
 		}
-	);
-	//console.log("response despues de haber enviado el msje", response.data);
+	);	
 	if (response.data) {
 		console.log("Message sent successfully");
 	} else {
