@@ -17,12 +17,14 @@ export const webhookMegamotoController = async (req, res) => {
 	
 	if (data.message) {
 		const senderId = data.message.from;
+		const senderPage = data.message.to;
 		const receivedMessage = data.message.contents[0].text;
 		const name = data.message.visitor.name;
 		const channel = data.channel;
-		console.log("el objeto q llega del webhook", data)
+		console.log("el objeto q llega del webhook", data);
 		console.log("mensaje recibido de facebook", receivedMessage);
 		console.log("senderId:", senderId);
+		console.log("senderPage", senderPage);
 		if (senderId==6874624262580365){
 			const yo = senderId
 			console.log("yooo", yo)
@@ -102,11 +104,14 @@ async function handleMessage(senderId, message) {
 		content: message,
 		channel: "facebook",
 	});
-
+	
+	console.log("senderPage en handleMessage", senderPage);
+	
 	const response = await axios.post(
 		"https://api.zenvia.com/v2/channels/facebook/messages",
 		{
-			from: process.env.ZENVIA_FACEBOOK_PAGE_ID,
+			//from: process.env.ZENVIA_FACEBOOK_PAGE_ID,
+			from: senderPage,
 			to: senderId,
 			contents: [
 				{
