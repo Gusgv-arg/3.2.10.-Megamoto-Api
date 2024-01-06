@@ -85,7 +85,7 @@ export const webhookMegamotoController = async (req, res) => {
 				channel: channel,
 			});
 
-			await handleMessage(senderId, aiResponse.choices[0].message.content);
+			await handleMessage(senderId, aiResponse.choices[0].message.content, senderPage);
 		} else {
 			await handleMessage(senderId, "!Hola! Estamos trabajando para que los mensajes sean respondido por nuestro bot de IA y no tengas que esperar. En breve te contestamos. !Gracias! ");
 
@@ -95,7 +95,7 @@ export const webhookMegamotoController = async (req, res) => {
 	res.status(200).send("EVENT_RECEIVED");
 };
 
-async function handleMessage(senderId, message) {
+async function handleMessage(senderId, message, senderPage) {
 	// Save the sent message to the database
 	await Messages.create({
 		name: "AI",
