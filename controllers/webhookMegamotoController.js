@@ -20,6 +20,7 @@ export const webhookMegamotoController = async (req, res) => {
 		const receivedMessage = data.message.contents[0].text;
 		const name = data.message.visitor.name;
 		const channel = data.channel;
+		console.log("el objeto q llega del webhook", data)
 		console.log("mensaje recibido de facebook", receivedMessage);
 		console.log("senderId:", senderId);
 		if (senderId==6874624262580365){
